@@ -2,6 +2,7 @@ import { init as initChart, registerMap } from 'echarts';
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { DescBox } from '../atoms/Box';
 // 한국 지도 데이터 불러오기
 import korea from '../models/kr_result.json';
 // 지도 데이터 등록
@@ -14,12 +15,17 @@ const MapLayout = styled.div`
   width: 100vw;
 `;
 const StyledMap = styled.div`
-  margin-left: 200px;
+  margin-left: 160px;
   height: 100%;
-  width: calc(100% - 200px);
+  width: calc(100% - 160px);
 `;
 
-const Map: React.FC<any> = ({ onSelect }): JSX.Element => {
+interface MapProps {
+  city: any;
+  onSelect: (params: any) => void;
+}
+
+const Map: React.FC<MapProps> = ({ city, onSelect }): JSX.Element => {
   // 지도 생성 여부 확인
   const [init, setInit] = useState<boolean>(false);
   // 맵 참조하기 위한 객체 생성
@@ -42,6 +48,8 @@ const Map: React.FC<any> = ({ onSelect }): JSX.Element => {
       });
       // 초기 생성 상태 변경
       setInit(true);
+      // 클릭 이벤트 설정
+      chart.on('click', onSelect);
     }
   }, []);
 
@@ -49,6 +57,7 @@ const Map: React.FC<any> = ({ onSelect }): JSX.Element => {
   return (
     <MapLayout>
       <StyledMap ref={mapRef} />
+      <DescBox city={city} />
     </MapLayout>
   )
 }
