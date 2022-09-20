@@ -5,6 +5,8 @@ import { createGlobalStyle } from 'styled-components';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 // Style
+import 'antd/dist/antd.css'
+// Style (Global)
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
